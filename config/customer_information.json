@@ -25,7 +25,7 @@
       "task_key": "ingest_customer_membership",
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "customer/bronze/ingest_main.ipynb",
+        "notebook_path": "customer/bronze/ingest_main",
         "base_parameters": {
           "VOL_PATH": "/Volumes/customer/customer_information/membership_details"
         },
@@ -47,7 +47,7 @@
       ],
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "customer/silver/silver_main.ipynb",
+        "notebook_path": "customer/silver/silver_main",
         "base_parameters": {
           "CATALOG": "customer",
           "DOMAIN": "customer_information"
@@ -57,6 +57,25 @@
       "timeout_seconds": 0,
       "email_notifications": {},
       "webhook_notifications": {}
+    },
+    {
+      "task_key": "dim_fact_tables",
+      "depends_on": [
+        {
+          "task_key": "silver_tables"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "gold/create_dim_fact",
+        "base_parameters": {
+          "CATALOG": "customer",
+          "DOMAIN": "customer_information"
+        },
+        "source": "GIT"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {}
     }
   ],
   "git_source": {
@@ -71,5 +90,11 @@
   ,
   "run_as": {
     "service_principal_name": "f29ec6fd-4037-439f-b3fd-16530b24c8a7"
+  },
+  "timeout_seconds": 300,
+  "schedule": {
+    "quartz_cron_expression": "27 0 3 * * ?",
+    "timezone_id": "Asia/Singapore",
+    "pause_status": "PAUSED"
   }
 }
