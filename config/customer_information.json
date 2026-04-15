@@ -68,4 +68,8 @@
     "enabled": true
   },
   "performance_target": "PERFORMANCE_OPTIMIZED"
+  ,
+  "run_as": {
+    "service_principal_name": "f29ec6fd-4037-439f-b3fd-16530b24c8a7"
+  }
 }
