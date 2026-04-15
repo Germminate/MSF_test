@@ -1,0 +1,71 @@
+{
+  "name": "customer_information_pipeline",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "ingest_customer_PI",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "customer/bronze/ingest_main.ipynb",
+        "base_parameters": {
+          "VOL_PATH": "/Volumes/customer/customer_information/personal_information"
+        },
+        "source": "GIT"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "ingest_customer_membership",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "customer/bronze/ingest_main.ipynb",
+        "base_parameters": {
+          "VOL_PATH": "/Volumes/customer/customer_information/membership_details"
+        },
+        "source": "GIT"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "silver_tables",
+      "depends_on": [
+        {
+          "task_key": "ingest_customer_PI"
+        },
+        {
+          "task_key": "ingest_customer_membership"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "customer/silver/silver_main.ipynb",
+        "base_parameters": {
+          "CATALOG": "customer",
+          "DOMAIN": "customer_information"
+        },
+        "source": "GIT"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    }
+  ],
+  "git_source": {
+    "git_url": "https://github.com/Germminate/MSF_test",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED"
+}
