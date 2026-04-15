@@ -1,0 +1,23 @@
+{
+  "dim": [
+    "customer_id",
+    "name_first_name",
+    "name_last_name",
+    "name_full_name",
+    "email",
+    "contact_number",
+    "address_street",
+    "address_unit",
+    "address_city",
+    "address_state",
+    "address_country",
+    "address_zip_code",
+    "credit_card_card_number",
+    "credit_card_expiry_month",
+    "credit_card_expiry_year",
+    "credit_card_issuer"
+  ],
+  "fact": []
+}
+
+
