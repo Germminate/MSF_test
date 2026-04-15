@@ -1,0 +1,15 @@
+{
+  "dim": [
+    "customer_id",
+    "payment_method",
+    "product_id",
+    "store_id",
+    "transaction_datetime",
+    "transaction_id"
+  ],
+  "fact": [
+    "quantity",
+    "unit_price",
+    "total_amount"
+  ],
+}
