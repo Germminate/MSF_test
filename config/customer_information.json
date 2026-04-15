@@ -11,9 +11,9 @@
       "task_key": "ingest_customer_PI",
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "customer/bronze/ingest_main.ipynb",
+        "notebook_path": "customer/bronze/ingest_main",
         "base_parameters": {
-          "VOL_PATH": "/Volumes/customer/customer_information/personal_information"
+          "VOLUME_PATH": "/Volumes/customer/customer_information/personal_information"
         },
         "source": "GIT"
       },
@@ -27,7 +27,7 @@
       "notebook_task": {
         "notebook_path": "customer/bronze/ingest_main",
         "base_parameters": {
-          "VOL_PATH": "/Volumes/customer/customer_information/membership_details"
+          "VOLUME_PATH": "/Volumes/customer/customer_information/membership_details"
         },
         "source": "GIT"
       },
@@ -67,7 +67,7 @@
       ],
       "run_if": "ALL_SUCCESS",
       "notebook_task": {
-        "notebook_path": "gold/create_dim_fact",
+        "notebook_path": "customer/gold/create_dim_fact",
         "base_parameters": {
           "CATALOG": "customer",
           "DOMAIN": "customer_information"
